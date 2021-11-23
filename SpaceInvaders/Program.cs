@@ -7,23 +7,24 @@ namespace SpaceInvaders{
         //MAIN
         static void Main(string[] args){
             setup();
-            Spaceship pinkuShip = new Spaceship();
+            Console.Clear();
+
+            Spaceship myShip = new Spaceship();
             while(true){
-                drawStage();
-                pinkuShip.draw(30, 10);
+                drawStage(myShip);
+                myShip.draw(38, 18);
 
             }
         }
 
         static void setup(){
-            Console.Clear();
             Console.BackgroundColor = ConsoleColor.Black;
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.CursorVisible = false;
             Console.SetBufferSize(800, 800);
         }
 
-        static void drawStage(){
+        static void drawStage(Spaceship ship){
             for(int y=0; y<23; y++){
                 for(int x=10; x<70; x++){
                     Console.SetCursorPosition(x, y);
@@ -31,7 +32,7 @@ namespace SpaceInvaders{
                     //SCORE
                     if(y == 2 && x == 14){
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("SCORE: ");
+                        Console.Write("SCORE: " + ship.getScore());
                         Console.ForegroundColor = ConsoleColor.Magenta;
                     }
 
@@ -45,7 +46,7 @@ namespace SpaceInvaders{
                     //LIVES
                     if(y == 21 && x == 13){
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("LIVES: ");
+                        Console.Write("LIVES: " + ship.getLives());
                         Console.ForegroundColor = ConsoleColor.Magenta;
                     }
 

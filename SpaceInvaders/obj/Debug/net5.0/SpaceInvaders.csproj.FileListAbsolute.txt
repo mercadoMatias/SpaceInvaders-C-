@@ -14,3 +14,19 @@ G:\Documents\myCoding\C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.dll
 G:\Documents\myCoding\C#\SpaceInvaders\obj\Debug\net5.0\ref\SpaceInvaders.dll
 G:\Documents\myCoding\C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.pdb
 G:\Documents\myCoding\C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.genruntimeconfig.cache
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\bin\Debug\net5.0\SpaceInvaders.exe
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\bin\Debug\net5.0\SpaceInvaders.deps.json
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\bin\Debug\net5.0\SpaceInvaders.runtimeconfig.json
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\bin\Debug\net5.0\SpaceInvaders.runtimeconfig.dev.json
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\bin\Debug\net5.0\SpaceInvaders.dll
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\bin\Debug\net5.0\ref\SpaceInvaders.dll
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\bin\Debug\net5.0\SpaceInvaders.pdb
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.csproj.AssemblyReference.cache
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.GeneratedMSBuildEditorConfig.editorconfig
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.AssemblyInfoInputs.cache
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.AssemblyInfo.cs
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.csproj.CoreCompileInputs.cache
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.dll
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\obj\Debug\net5.0\ref\SpaceInvaders.dll
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.pdb
+G:\Documents\myCoding\C#\SpaceInvaders C#\SpaceInvaders\obj\Debug\net5.0\SpaceInvaders.genruntimeconfig.cache

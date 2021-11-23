@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Documents\\myCoding\\C#\\SpaceInvaders\\SpaceInvaders.csproj": {}
+    "G:\\Documents\\myCoding\\C#\\SpaceInvaders C#\\SpaceInvaders\\SpaceInvaders.csproj": {}
   },
   "projects": {
-    "G:\\Documents\\myCoding\\C#\\SpaceInvaders\\SpaceInvaders.csproj": {
+    "G:\\Documents\\myCoding\\C#\\SpaceInvaders C#\\SpaceInvaders\\SpaceInvaders.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Documents\\myCoding\\C#\\SpaceInvaders\\SpaceInvaders.csproj",
+        "projectUniqueName": "G:\\Documents\\myCoding\\C#\\SpaceInvaders C#\\SpaceInvaders\\SpaceInvaders.csproj",
         "projectName": "SpaceInvaders",
-        "projectPath": "G:\\Documents\\myCoding\\C#\\SpaceInvaders\\SpaceInvaders.csproj",
+        "projectPath": "G:\\Documents\\myCoding\\C#\\SpaceInvaders C#\\SpaceInvaders\\SpaceInvaders.csproj",
         "packagesPath": "C:\\Users\\carlo\\.nuget\\packages\\",
-        "outputPath": "G:\\Documents\\myCoding\\C#\\SpaceInvaders\\obj\\",
+        "outputPath": "G:\\Documents\\myCoding\\C#\\SpaceInvaders C#\\SpaceInvaders\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\carlo\\AppData\\Roaming\\NuGet\\NuGet.Config"
