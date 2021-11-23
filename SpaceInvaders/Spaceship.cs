@@ -1,4 +1,5 @@
 using System;
+using Helpers;
 
 namespace Models{
     class Spaceship{
@@ -41,29 +42,34 @@ namespace Models{
             this.y = y;
         }
 
-
-        public void shoot(){
-
-        }
-
         public void moveLeft(){
-            
+            Console.SetCursorPosition(this.x, this.y);
+            Console.Write("   ");
+            if(this.x>14)
+                this.x--;
         }
 
         public void moveRight(){
-
+            Console.SetCursorPosition(this.x, this.y);
+            Console.Write("   ");
+            if(this.x<63)
+                this.x++;
         }
 
-        public void draw(int x, int y){
+        public void move(int x, int y){
             this.x = x;
             this.y = y;
-            Console.SetCursorPosition(x, y);
+            this.draw();
+        }
+
+        public void draw(){
+            Console.SetCursorPosition(this.x, this.y);
             Console.Write("▄█▄");
         }
     
         public void seePosition(){
-            Console.SetCursorPosition(0, 0);
-            Console.Write("[X= " + this.x + " Y= " + this.y + "]");
+            Console.SetCursorPosition(71, 0);
+            Console.Write("Ship [X:" + this.x + " Y:" + this.y + "]");
         }
     
     }

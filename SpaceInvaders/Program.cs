@@ -1,19 +1,49 @@
 ﻿using System;
 using Models;
+using Helpers;
 using System.Threading;
 
 namespace SpaceInvaders{
     class Program{
+        const char LEFT = 'a';
+        const char RIGHT = 'd';
+        const char SHOOT = 'l';
+
         //MAIN
         static void Main(string[] args){
             setup();
-            Console.Clear();
 
+            //Objects
             Spaceship myShip = new Spaceship();
-            while(true){
-                drawStage(myShip);
-                myShip.draw(38, 18);
+            Bullet myBullet = new Bullet();
+            Shield[] shields = {new Shield(), new Shield(), new Shield(), new Shield()};
 
+            myShip.move(38, 18);
+
+            while(true){  
+                drawStage(myShip);
+                myShip.draw();
+                shields[0].move(15, 16);
+                shields[1].move(29, 16);
+                shields[2].move(43, 16);
+                shields[3].move(57, 16);
+
+                myShip.seePosition();
+                myBullet.seePosition();
+
+                switch(Console.ReadKey(true).KeyChar){
+                    case LEFT:
+                        myShip.moveLeft();
+                    break;
+                    case RIGHT:
+                        myShip.moveRight();
+                    break;
+                    case SHOOT:
+                        if(!myBullet.isShooting())
+                            if(myBullet.shoot(myShip.getX(), shields))
+                                myShip.setScore(myShip.getScore() + 100);                            
+                    break;
+                }
             }
         }
 
@@ -22,6 +52,7 @@ namespace SpaceInvaders{
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.CursorVisible = false;
             Console.SetBufferSize(800, 800);
+            Console.Clear();
         }
 
         static void drawStage(Spaceship ship){
@@ -64,16 +95,6 @@ namespace SpaceInvaders{
                 }
             }
             Console.SetCursorPosition(0, 0);
-        }
-
-        static ConsoleColor randomColor(){
-            ConsoleColor[] colors = {ConsoleColor.Red, 
-                ConsoleColor.Yellow,
-                ConsoleColor.Blue,
-                ConsoleColor.Green,
-                ConsoleColor.Magenta};
-
-            return colors[(new Random()).Next(0, 4)];        
         }
 
     }
