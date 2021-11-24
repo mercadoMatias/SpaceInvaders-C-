@@ -7,7 +7,9 @@ namespace Helpers{
                 ConsoleColor.Yellow,
                 ConsoleColor.Blue,
                 ConsoleColor.Green,
-                ConsoleColor.Magenta};
+                ConsoleColor.Magenta,
+                ConsoleColor.Gray,
+                ConsoleColor.White};
 
             return colors[(new Random()).Next(0, 4)];        
         }

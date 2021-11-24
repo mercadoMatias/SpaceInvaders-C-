@@ -32,12 +32,13 @@ namespace Models{
             return this.shooting;
         }
 
-        public bool shoot(int x, Shield[] shields){
+        public bool shoot(int x, Shield[] shields, Enemy[,] troops){
             this.shooting = true;
             this.x = x+1;
-            bool collisioned = false;
+            bool enemyCollisioned  = false;
+            bool shieldCollisioned = false;
 
-            while(this.y>1 && !collisioned){
+            while(this.y>1 && !enemyCollisioned && !shieldCollisioned){
                 this.y--;
                 this.seePosition();
                 Console.SetCursorPosition(this.x, this.y);
@@ -45,12 +46,13 @@ namespace Models{
                 Thread.Sleep(50);
                 Console.SetCursorPosition(this.x, this.y);
                 Console.Write(" ");
-                collisioned = this.collision(this, shields);               
+                enemyCollisioned  = this.enemyCollision(this, troops);
+                shieldCollisioned = this.shieldCollision(this, shields);               
             }
 
             this.y = 18;
             this.shooting = false;
-            return collisioned;
+            return enemyCollisioned;
         }
     
         public void seePosition(){
@@ -58,7 +60,7 @@ namespace Models{
             Console.Write("Bullet [X:" + this.x + " Y:" + this.y + "]");
         }
 
-        public bool collision(Bullet bullet, Shield[] shields){
+        public bool shieldCollision(Bullet bullet, Shield[] shields){
             foreach(Shield shield in shields)
                 if(bullet.getY() == shield.getY())
                     for(int i=shield.getX(); i<=shield.getX()+6; i++)
@@ -70,6 +72,21 @@ namespace Models{
                                 return true;
                             }
                         }
+            return false;  
+        }
+
+        public bool enemyCollision(Bullet bullet, Enemy[,] troops){
+            for(int i=0; i<7; i++){
+                for(int j=0; j<4; j++){
+                    if(bullet.getY() == troops[i, j].getY()){
+                        for(int x=troops[i, j].getX(); x<=troops[i, j].getX()+2; x++)
+                            if(bullet.getX() == x && troops[i, j].getShape()[x-troops[i, j].getX()] != ' '){
+                                troops[i, j].setShape("   ");
+                                return true;
+                            }
+                    }
+                }
+            }
             return false;  
         }
 

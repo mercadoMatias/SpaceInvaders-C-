@@ -45,15 +45,15 @@ namespace Models{
         public void moveLeft(){
             Console.SetCursorPosition(this.x, this.y);
             Console.Write("   ");
-            if(this.x>14)
-                this.x--;
+            if(this.x>15)
+                this.x-=2;
         }
 
         public void moveRight(){
             Console.SetCursorPosition(this.x, this.y);
             Console.Write("   ");
-            if(this.x<63)
-                this.x++;
+            if(this.x<62)
+                this.x+=2;
         }
 
         public void move(int x, int y){
