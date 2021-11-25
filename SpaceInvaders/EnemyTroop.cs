@@ -78,5 +78,10 @@ namespace Models{
             return (Enemy)this.MemberwiseClone();  
         } 
    
+        public void seePosition(){
+            Console.SetCursorPosition(71, 2);
+            Console.Write("Troops [X:" + this.x + " Y:" + this.y + "]");
+        }
+
     }
 }

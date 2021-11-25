@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Helpers;
 using System.Threading;
 
 namespace Models{
@@ -42,8 +43,10 @@ namespace Models{
                 this.y--;
                 this.seePosition();
                 Console.SetCursorPosition(this.x, this.y);
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("^");
-                Thread.Sleep(50);
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Thread.Sleep(20);
                 Console.SetCursorPosition(this.x, this.y);
                 Console.Write(" ");
                 enemyCollisioned  = this.enemyCollision(this, troops);

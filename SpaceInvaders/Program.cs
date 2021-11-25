@@ -32,14 +32,14 @@ namespace SpaceInvaders{
             int enemyY = 0;
             int stepsTaken = 0;
 
+            drawStage(myShip);
             //Game execution
-            while(enemyCount > 0){ 
-                drawStage(myShip);
+            while(enemyCount > 0 && enemyY < 5){ 
                 myShip.draw();
 
                 for(int i=0; i<4; i++){
                     for(int j=0; j<7; j++){
-                        Console.SetCursorPosition(11 + j*4 + enemyX, 3+i*2);
+                        Console.SetCursorPosition(11 + j*4 + enemyX, 3 + i*2 + enemyY);
                         Console.Write("   ");
                         troops[j, i].setX(12 + j*4 + enemyX);
                         troops[j, i].setY(3+i*2 + enemyY);
@@ -50,6 +50,7 @@ namespace SpaceInvaders{
 
                 myShip.seePosition();
                 myBullet.seePosition();
+                troops[0, 0].seePosition();
 
                 switch(Console.ReadKey(true).KeyChar){
                     case LEFT:
@@ -61,10 +62,12 @@ namespace SpaceInvaders{
                         stepsTaken++;
                     break;
                     case SHOOT:
-                        if(!myBullet.isShooting() && myBullet.shoot(myShip.getX(), shields, troops)){
-                            myShip.setScore(myShip.getScore() + 10*(20-(enemyY*5))-(stepsTaken));    
-                            enemyCount--;
-                        }                        
+                        if(!myBullet.isShooting())
+                            if(myBullet.shoot(myShip.getX(), shields, troops)){
+                                myShip.setScore(myShip.getScore() + 10*(20-(enemyY*5))-(stepsTaken));    
+                                enemyCount--;
+                            }else
+                                myShip.setScore(myShip.getScore() - (50 + (50*enemyY)));         
                     break;
                 }
 
@@ -74,6 +77,15 @@ namespace SpaceInvaders{
                 }else
                     enemyX++;
                 clearScreen();
+                drawStage(myShip);
+            }
+
+            if(enemyY > 5)
+                Console.Write("GAME OVER!");
+            if(enemyCount < 1){
+                myShip.setScore(myShip.getScore() + (myShip.getLives() * 500));
+                Console.Write("CONGRATULATIONS!");
+                Console.Write("\nYour final score is: [" + myShip.getScore() + "]");
             }
 
             Console.SetCursorPosition(0, 24);
@@ -125,8 +137,10 @@ namespace SpaceInvaders{
                     //LIVES
                     if(y == 21 && x == 13){
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write("LIVES: " + ship.getLives());
+                        Console.Write("LIVES: ");
                         Console.ForegroundColor = ConsoleColor.Magenta;
+                        for(int i=ship.getLives(); i>0; i--)
+                            Console.Write(" ▄█▄");
                     }
 
                     //CREDITS
