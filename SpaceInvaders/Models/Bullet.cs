@@ -80,7 +80,7 @@ namespace Models{
 
         public bool enemyCollision(Bullet bullet, Enemy[,] troops){
             for(int i=0; i<7; i++){
-                for(int j=0; j<4; j++){
+                for(int j=0; j<5; j++){
                     if(bullet.getY() == troops[i, j].getY()){
                         for(int x=troops[i, j].getX(); x<=troops[i, j].getX()+2; x++)
                             if(bullet.getX() == x && troops[i, j].getShape()[x-troops[i, j].getX()] != ' '){
