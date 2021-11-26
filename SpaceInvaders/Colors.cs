@@ -1,7 +1,7 @@
 using System;
 
 namespace Helpers{
-    class ColorsHelper{
+    class Colors{
         public static ConsoleColor randomColor(){
             ConsoleColor[] colors = {ConsoleColor.Red, 
                 ConsoleColor.Yellow,

@@ -1,5 +1,6 @@
 ﻿using System;
 using Models;
+using Helpers;
 using System.Threading;
 
 namespace SpaceInvaders{
@@ -25,33 +26,39 @@ namespace SpaceInvaders{
                 for(int j=0; j<4; j++)
                     troops[i, j] = enemies[j].ShallowCopy();
 
+            //SETUP
             setup();
-
             myShip.move(38, 18);
             int enemyX = 15;
             int enemyY = 0;
             int stepsTaken = 0;
-
             drawStage(myShip);
+
+            //Draw enemies
+            drawEnemies(troops, shields, enemyX, enemyY, 100);
+
+            //PRESS START!
+            Thread.Sleep(800);
+            Texts.pressToStart();
+            while(Console.ReadKey(true).KeyChar != 'l');
+
+            //START
+            clearScreen();
+            Texts.start();
+            Thread.Sleep(1200);
+
             //Game execution
-            while(enemyCount > 0 && enemyY < 5){ 
+            while(enemyCount > 0 && enemyY < 6){ 
+                drawStage(myShip);
                 myShip.draw();
 
-                for(int i=0; i<4; i++){
-                    for(int j=0; j<7; j++){
-                        Console.SetCursorPosition(11 + j*4 + enemyX, 3 + i*2 + enemyY);
-                        Console.Write("   ");
-                        troops[j, i].setX(12 + j*4 + enemyX);
-                        troops[j, i].setY(3+i*2 + enemyY);
-                        troops[j, i].draw();
-                    }
-                    shields[i].move(15+(14*i), 16);
-                }
+                drawEnemies(troops, shields, enemyX, enemyY);         
 
                 myShip.seePosition();
                 myBullet.seePosition();
                 troops[0, 0].seePosition();
 
+                if(Console.KeyAvailable)
                 switch(Console.ReadKey(true).KeyChar){
                     case LEFT:
                         myShip.moveLeft();
@@ -67,28 +74,52 @@ namespace SpaceInvaders{
                                 myShip.setScore(myShip.getScore() + 10*(20-(enemyY*5))-(stepsTaken));    
                                 enemyCount--;
                             }else
-                                myShip.setScore(myShip.getScore() - (50 + (50*enemyY)));         
+                                myShip.setScore(myShip.getScore() - 20);         
                     break;
-                }
+                }else
+                    Thread.Sleep(200);
+
 
                 if(enemyX>28){
                     enemyX = 0;
                     enemyY++;
                 }else
                     enemyX++;
-                clearScreen();
-                drawStage(myShip);
             }
+            setup();
 
-            if(enemyY > 5)
-                Console.Write("GAME OVER!");
-            if(enemyCount < 1){
+            Console.SetCursorPosition(32, 8);
+
+            if(enemyY > 6){
+                Console.SetCursorPosition(0, 0);
+                Texts.gameOver();
+            }else if(enemyCount < 1){
                 myShip.setScore(myShip.getScore() + (myShip.getLives() * 500));
                 Console.Write("CONGRATULATIONS!");
+                Console.SetCursorPosition(24, 10);
                 Console.Write("\nYour final score is: [" + myShip.getScore() + "]");
             }
 
             Console.SetCursorPosition(0, 24);
+        }
+
+        static void drawEnemies(Enemy[,] troops, Shield[] shields, int enemyX, int enemyY, int sleep = 0){
+            for(int i=0; i<4; i++){
+                for(int j=0; j<7; j++){
+                    Console.SetCursorPosition(11 + j*4 + enemyX, 3 + i*2 + enemyY);
+                    Console.Write("   ");
+                    troops[j, i].setX(12 + j*4 + enemyX);
+                    troops[j, i].setY(3+i*2 + enemyY);
+                    troops[j, i].draw();
+                    Thread.Sleep(sleep);
+                }
+                shields[i].move(15+(14*i), 16); 
+            }
+
+            Console.SetCursorPosition(13, enemyY+10);
+
+            for(int i=0; i<54; i++)
+                Console.Write("_");  
         }
 
         static void clearScreen(){
@@ -116,6 +147,7 @@ namespace SpaceInvaders{
         }
 
         static void drawStage(Spaceship ship){
+            clearScreen();
             for(int y=0; y<23; y++)
                 for(int x=10; x<70; x++){
                     Console.SetCursorPosition(x, y);
@@ -124,14 +156,12 @@ namespace SpaceInvaders{
                     if(y == 2 && x == 14){
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write("SCORE: " + ship.getScore());
-                        Console.ForegroundColor = ConsoleColor.Magenta;
                     }
 
                     //_
                     if(y == 19 && x > 13 && x < 66){
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.Write("_");
-                        Console.ForegroundColor = ConsoleColor.Magenta;
                     }
 
                     //LIVES
@@ -147,8 +177,9 @@ namespace SpaceInvaders{
                     if(y == 21 && x == 57){
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write("CREDITS: ");
-                        Console.ForegroundColor = ConsoleColor.Magenta;
                     }
+
+                    Console.ForegroundColor = ConsoleColor.Magenta;
 
                     //BORDER
                     if(y == 0 || y == 22 || x == 10 || x == 69)

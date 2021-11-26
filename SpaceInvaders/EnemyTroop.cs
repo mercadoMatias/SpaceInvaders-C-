@@ -11,7 +11,7 @@ namespace Models{
         //Construct
         public Enemy(){
             shape = this.randomShape();
-            color = ColorsHelper.randomColor();
+            color = Colors.randomColor();
             this.x = 0;
             this.y = 0;
         }
