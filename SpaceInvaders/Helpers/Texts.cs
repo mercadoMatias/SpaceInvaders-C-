@@ -8,7 +8,7 @@ namespace Helpers{
             string[] text = new string[2];
             text[0] = "Hello humans!, I hope you are prepared to be invaded!";
             
-            pinkuSpeak(text);
+            pinkuSpeak(text, 15);
 
             text = new string[3];
             text[0] = " ";

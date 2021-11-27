@@ -15,6 +15,13 @@ namespace SpaceInvaders{
 
         //MAIN
         static void Main(string[] args){
+            //FILES
+            //LOAD
+            string path = "data/bestScore.bin";
+            if(!File.Exists(path))
+                File.WriteAllText(path, "");
+            string[] bestScoreHolder = File.ReadAllLines(path);
+
             char playAgain = (char) 13;
             int? finalScore = null;
             while(playAgain == (char) 13){
@@ -34,7 +41,7 @@ namespace SpaceInvaders{
                         troops[i, j] = enemies[j].ShallowCopy();
 
                 //SETUP
-                setup();
+                setup(bestScoreHolder);
                 myShip.move(38, 18);
                 int enemyX = 15;
                 int enemyY = 0;
@@ -77,7 +84,7 @@ namespace SpaceInvaders{
                         case ACCEPT:
                             if(!myBullet.isShooting())
                                 if(myBullet.shoot(myShip.getX(), shields, troops)){
-                                    myShip.setScore(myShip.getScore() + 10*(20-(enemyY*5))-(stepsTaken));    
+                                    myShip.setScore(myShip.getScore() + 10*(20-(enemyY*5))+(stepsTaken*10));    
                                     enemyCount--;
                                 }else
                                     myShip.setLives(myShip.getLives()-1);       
@@ -92,14 +99,14 @@ namespace SpaceInvaders{
                         enemyX++;
                 }
                 //END EXECUTION
-                setup();
+                setup(bestScoreHolder);
 
                 Console.SetCursorPosition(32, 8);
 
-                if(1 == 2/*enemyY >= 4 || myShip.getLives()<1*/){
+                if(enemyY >= 4 || myShip.getLives()<1){
                     Console.SetCursorPosition(0, 0);
                     Texts.gameOver();
-                }else /*if(enemyCount < 1)*/{
+                }else if(enemyCount < 1){
                     myShip.setScore(myShip.getScore() + (myShip.getLives() * 500));
                     Texts.congratulations(myShip.getScore());
                     finalScore = myShip.getScore();
@@ -111,26 +118,45 @@ namespace SpaceInvaders{
             }
 
             if(finalScore != null){
-                setup();
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.SetCursorPosition(25, 10);
-                Console.Write("Let's save your score! [" + finalScore + "]");
+                setup(bestScoreHolder, false);
+                bool canSave = false;
+                if(bestScoreHolder.Length > 0)
+                    if(int.Parse(bestScoreHolder[1]) < finalScore){
+                        Console.SetCursorPosition(25, 6);
+                        Console.Write("New HighScore!. You beated: [" + bestScoreHolder[0] + " - " + bestScoreHolder[1] + "]");
+                        canSave = true;
+                    }
+                else
+                    canSave = true;
 
-                Console.SetCursorPosition(25, 11);
-                Console.Write("3 Initials: ");
+                if(canSave){
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.SetCursorPosition(25, 10);
+                    Console.Write("Let's save your score! [" + finalScore + "]");
 
-                char[] finalName = new char[3];
-                for(int i=0; i<3; i++){
-                    finalName[i] = char.ToUpper(Console.ReadKey().KeyChar);
+                    Console.SetCursorPosition(25, 11);
+                    Console.Write("3 Initials: ");
+
+                    char[] finalName = new char[3];
+                    for(int i=0; i<3; i++){
+                        finalName[i] = char.ToUpper(Console.ReadKey().KeyChar);
+                    }
+
+                    Console.SetCursorPosition(25, 14);
+                    string name = "";
+                    for(int i=0; i<3; i++){
+                        name += finalName[i];
+                    }      
+                    Console.WriteLine(finalScore.ToString());
+
+                    string[] bestScore = {name, finalScore.ToString()};
+
+                    using StreamWriter bestScoreFile = new (path, false);
+                    bestScoreFile.WriteLine(bestScore[0]);
+                    bestScoreFile.WriteLine(bestScore[1]);
+                    bestScoreFile.Flush();    
                 }
-
-                Console.SetCursorPosition(25, 14);
-                for(int i=0; i<3; i++){
-                    Console.Write(finalName[i]);
-                }                
             }
-
-            
         }
 
         static void drawEnemies(Enemy[,] troops, Shield[] shields, int enemyX, int enemyY, int sleep = 0, bool showBar = true){
@@ -163,12 +189,25 @@ namespace SpaceInvaders{
                 }
         }
 
-        static void setup(){
+        static void setup(string[] bestScoreHolder, bool showBest = true){
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.CursorVisible = false;
             Console.SetBufferSize(800, 800);
             Console.Clear();
-            
+
+            string holder = "";
+            int holderBest = 0;
+
+            if(bestScoreHolder.Length > 0){
+                holder = bestScoreHolder[0];
+                holderBest = int.Parse(bestScoreHolder[1]);
+            }
+
+            if(showBest){
+                Console.SetCursorPosition(50, 2);
+                Console.Write("BEST: [" + holder + "] : " + holderBest);
+            }
+
             for(int y=0; y<23; y++)
                 for(int x=10; x<70; x++){
                     Console.SetCursorPosition(x, y);
