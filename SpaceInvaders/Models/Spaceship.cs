@@ -68,7 +68,7 @@ namespace Models{
         }
     
         public void seePosition(){
-            Console.SetCursorPosition(71, 0);
+            Console.SetCursorPosition(71, 1);
             Console.Write("Ship [X:" + this.x + " Y:" + this.y + "]");
         }
     

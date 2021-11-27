@@ -79,7 +79,7 @@ namespace Models{
         } 
    
         public void seePosition(){
-            Console.SetCursorPosition(71, 2);
+            Console.SetCursorPosition(71, 3);
             Console.Write("Troops [X:" + this.x + " Y:" + this.y + "]");
         }
 

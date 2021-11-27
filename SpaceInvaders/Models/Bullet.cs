@@ -59,7 +59,7 @@ namespace Models{
         }
     
         public void seePosition(){
-            Console.SetCursorPosition(71, 1);
+            Console.SetCursorPosition(71, 2);
             Console.Write("Bullet [X:" + this.x + " Y:" + this.y + "]");
         }
 

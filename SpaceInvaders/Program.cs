@@ -2,21 +2,20 @@
 using Models;
 using Helpers;
 using System.Threading;
-using System.Text.Json;
-using System.Runtime;
 using System.IO;
+
+// SPACE INVADERS C# --
+// MADE BY MATII MERCADO (PINKU) 2019 - 2021
 
 namespace SpaceInvaders{
     class Program{
         const char LEFT  = 'a';
         const char RIGHT = 'd';
         const char ACCEPT = 'l';
-        const char CANCEL = 'm';
 
         //MAIN
         static void Main(string[] args){
-            //FILES
-            //LOAD
+            //FILES - LOAD
             string path = "data/bestScore.bin";
             if(!File.Exists(path))
                 File.WriteAllText(path, "");
@@ -24,6 +23,7 @@ namespace SpaceInvaders{
 
             char playAgain = (char) 13;
             int? finalScore = null;
+
             while(playAgain == (char) 13){
                 //Objects
                 Spaceship myShip = new Spaceship();
@@ -42,6 +42,7 @@ namespace SpaceInvaders{
 
                 //SETUP
                 setup(bestScoreHolder);
+                showControls();
                 myShip.move(38, 18);
                 int enemyX = 15;
                 int enemyY = 0;
@@ -117,6 +118,7 @@ namespace SpaceInvaders{
                     playAgain = Console.ReadKey(true).KeyChar;
             }
 
+            //SAVE SCORE
             if(finalScore != null){
                 setup(bestScoreHolder, false);
                 bool canSave = false;
@@ -151,6 +153,7 @@ namespace SpaceInvaders{
 
                     string[] bestScore = {name, finalScore.ToString()};
 
+                    //FILES - SAVE
                     using StreamWriter bestScoreFile = new (path, false);
                     bestScoreFile.WriteLine(bestScore[0]);
                     bestScoreFile.WriteLine(bestScore[1]);
@@ -206,7 +209,7 @@ namespace SpaceInvaders{
             if(showBest){
                 Console.SetCursorPosition(50, 2);
                 Console.Write("BEST: [" + holder + "] : " + holderBest);
-            }
+            }     
 
             for(int y=0; y<23; y++)
                 for(int x=10; x<70; x++){
@@ -259,5 +262,12 @@ namespace SpaceInvaders{
                 }
             Console.SetCursorPosition(0, 0);
         }
+    
+        static void showControls(){
+            Console.SetCursorPosition(71, 5);
+            Console.Write("MOVE: [" + char.ToUpper(LEFT) + "][" + char.ToUpper(RIGHT) + "]");
+            Console.SetCursorPosition(71, 6);
+            Console.Write("SHOOT: [" + char.ToUpper(ACCEPT) + "]"); 
+        }    
     }
 }
